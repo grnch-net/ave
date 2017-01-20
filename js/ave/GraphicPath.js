@@ -1,7 +1,7 @@
 (function () {
 "use strict";
 
-ave.Graphic = class extends ave.interface.graphic {
+ave.Graphic = class extends ave.Graphic {
 
     constructor(param) {
         if (!grnch.checkParam(param, {
@@ -26,10 +26,17 @@ ave.Graphic = class extends ave.interface.graphic {
         this.element = dom.create({
             type: 'path',
             id: this.nodeId
-        })
+        });
 
 		this._path = 'M 0 0';
 		this.path = param.path;
+
+		this.size._refreshWidth() {
+			console.warn('resize width method is null');
+		}
+		this.size._refreshHeight() {
+			console.warn('resize height method is null');
+		}
 
         this.scene.items[this.id] = this;
 

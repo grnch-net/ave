@@ -267,31 +267,31 @@ ave.interface = {
 	// 		obj.active = false;
     // },
 
-	deleteGraphic(obj) {
-		if (obj === undefined)
-			obj = this;
-		if (obj === ave.interface) {
-			console.error('deleteGroup: this obj is undefined.');
-			return;
-		}
-
-		obj.element.remove();
-
-		if (obj.parent) {
-			let parent = obj.parent;
-			let ind = parent.children.indexOf(obj);
-			if (ind !== -1) {
-				parent.children.splice(ind, 1);
-				if (parent.children.indexOf(obj) !== -1)
-					console.error('deleteGraphic: child delete, but ind: ' + ind);
-			} else {
-				console.error('deleteGraphic: index of -1', obj);
-			}
-		}
-
-		if (obj.scene)
-			delete obj.scene.items[obj.id];
-	},
+	// deleteGraphic(obj) {
+	// 	if (obj === undefined)
+	// 		obj = this;
+	// 	if (obj === ave.interface) {
+	// 		console.error('deleteGroup: this obj is undefined.');
+	// 		return;
+	// 	}
+	//
+	// 	obj.element.remove();
+	//
+	// 	if (obj.parent) {
+	// 		let parent = obj.parent;
+	// 		let ind = parent.children.indexOf(obj);
+	// 		if (ind !== -1) {
+	// 			parent.children.splice(ind, 1);
+	// 			if (parent.children.indexOf(obj) !== -1)
+	// 				console.error('deleteGraphic: child delete, but ind: ' + ind);
+	// 		} else {
+	// 			console.error('deleteGraphic: index of -1', obj);
+	// 		}
+	// 	}
+	//
+	// 	if (obj.scene)
+	// 		delete obj.scene.items[obj.id];
+	// },
 
     createGraphicGroup: function (scene, param = {}) {
         if (typeof(param.position) !== 'object' )
@@ -493,9 +493,6 @@ ave.interface = {
 
         return newImage;
     },
-
-	// TODO: write removeParent
-	removeParent() {},
 
 	// TODO: write cloneGraphic
 	cloneGraphic() {},

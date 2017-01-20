@@ -5,12 +5,13 @@ var ave;
 ave = {
     config: {
         type: {
-            WORLD: 0,
-            GROUP: 1,
-            GRAPHIC: 2,
-			FILTER: 3,
-			SPRITESHEET: 4,
-			GRADIENT: 5
+			SCENEOBJECT: 0,
+            WORLD: 1,
+            GROUP: 2,
+            GRAPHIC: 3,
+			FILTER: 4,
+			SPRITESHEET: 5,
+			GRADIENT: 6
         },
 		spriteSheet: {
 			frameRate: 15
