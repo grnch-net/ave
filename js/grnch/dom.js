@@ -28,6 +28,7 @@ dom = {
 				case 'filter':
 				case 'fegaussianblur':
 				case 'foreignobject':
+				case 'use':
 	                isSVG = true;
 	                htmlElement = document.createElementNS(grnch.svgns, param.type);
 	                break;

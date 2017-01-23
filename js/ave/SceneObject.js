@@ -13,16 +13,56 @@ ave.SceneObject = class {
 
 		this.events = {};
 
-		this.relativeScale = {
-			_x: 1,
-			get x() {
-				return this._x;
+		this.anchor = {
+			_x: 0,
+			get x() { return this._x; },
+			set x(val) {
+				if (typeof(val) !== 'number') return;
+
+				this._x = val;
+				sceneObject.transformRefresh();
 			},
 
-			_y: 1,
-			get y() {
-				return this._y
+			_y: 0,
+			get y() { return this._y; },
+			set y(val) {
+				if (typeof(val) !== 'number') return;
+
+				this._y = val;
+				sceneObject.transformRefresh();
 			},
+
+			_z: 0,
+			get z() { return this._z; },
+			set z(val) {
+				if (typeof(val) !== 'number') return;
+
+				this._z = val;
+				sceneObject.transformRefresh();
+			},
+
+			set(_x, _y, _z) {
+				if (typeof(_x) === 'number')
+                    this._x = _x;
+
+                if (typeof(_y) === 'number')
+                    this._y = _y;
+
+                if (typeof(_z) === 'number')
+                    this._z = _z;
+
+				sceneObject.transformRefresh();
+
+				return sceneObject;
+			}
+		}
+
+		this.relativeScale = {
+			_x: 1,
+			get x() { return this._x; },
+
+			_y: 1,
+			get y() { return this._y },
 
 			refresh() {
 				this._x = sceneObject.scale._x * (globalPosition._z / 100);
@@ -32,36 +72,47 @@ ave.SceneObject = class {
 			}
 		}
 
-		this.size = {
-			_width: 0,
-			get width() {
-				return this._width;
-			},
-			set width(val) {
-				if (typeof(val) !== 'number') return;
-
-				this._width = val;
-				this._refreshWidth();
-			},
-
-			_height: 0,
-			get height() {
-				return this._height;
-			},
-			set height(val) {
-				if (typeof(val) !== 'number') return;
-
-				this._height = val;
-				this._refreshHeight();
-			},
-
-			_refreshWidth() {},
-			_refreshHeight() {}
-		};
-
 		this.scale = {
 			_x: 1,
-			_y: 1
+			get x() { return this._x; },
+			set x(val) {
+                if (typeof(val) !== 'number') return;
+
+                this._x = val;
+				sceneObject.transformRefresh();
+			},
+
+			_y: 1,
+			get y() { return this._y; },
+			set y(val) {
+                if (typeof(val) !== 'number') return;
+
+                this._y = val;
+				sceneObject.transformRefresh();
+			},
+
+			_z: 1,
+			get z() { return this._z; },
+			set z(val) {
+                if (typeof(val) !== 'number') return;
+
+                this._z = val;
+				sceneObject.transformRefresh();
+			},
+
+			set(_x, _y, _z) {
+                if (typeof(_x) === 'number')
+                    this._x = _x;
+
+                if (typeof(_y) === 'number')
+                    this._y = _y;
+
+                if (typeof(_z) === 'number')
+                    this._z = _z;
+
+				sceneObject.transformRefresh();
+				return sceneObject;
+            }
 		};
 
 		this.globalPosition = {
@@ -88,11 +139,12 @@ ave.SceneObject = class {
 				// 	|| newPos.y !== this.y
 				// 	|| newPos.z !== this.z
 				// ) {
-					this.x = newPos.x;
-					this.y = newPos.y;
-					this.z = newPos.z;
+					this._x = newPos.x;
+					this._y = newPos.y;
+					this._z = newPos.z;
 				// }
 
+				sceneObject.transformRefresh();
 				return sceneObject;
 			}
 
@@ -105,7 +157,7 @@ ave.SceneObject = class {
                 if (typeof(val) !== 'number') return;
 
                 this._x = val;
-				sceneObject.transformRefresh();
+				sceneObject.globalPosition.refresh();
 			},
 
 			_y: 0,
@@ -114,7 +166,7 @@ ave.SceneObject = class {
                 if (typeof(val) !== 'number') return;
 
                 this._y = val;
-				sceneObject.transformRefresh();
+				sceneObject.globalPosition.refresh();
 			},
 
 			_z: 0,
@@ -123,7 +175,7 @@ ave.SceneObject = class {
                 if (typeof(val) !== 'number') return;
 
                 this._z = val;
-				sceneObject.transformRefresh();
+				sceneObject.globalPosition.refresh();
 			},
 
 			set(_x, _y, _z) {
@@ -136,7 +188,7 @@ ave.SceneObject = class {
                 if (typeof(_z) === 'number')
                     this._z = _z;
 
-				sceneObject.transformRefresh();
+				sceneObject.globalPosition.refresh();
 				return sceneObject;
             }
 		};
@@ -147,7 +199,13 @@ ave.SceneObject = class {
     }
 
 	initSceneObject(param) {
+		if (typeof(param.position) !== 'object' )
+            param.position = {};
+		if (typeof(param.scale) !== 'object' )
+			param.scale = {};
+
 		this.position.set(param.position.x, param.position.y, param.position.z);
+		this.scale.set(param.scale.x, param.scale.y, param.scale.z);
 		this.active = param.active;
 		this.opacity = param.opacity;
 	}
@@ -163,7 +221,6 @@ ave.SceneObject = class {
 		}, 'ave.Graphic: set parent') ) return;
 
 		this._parent = val;
-		this.globalPosition.reWrite();
 	}
 
 	get active() {
@@ -190,22 +247,20 @@ ave.SceneObject = class {
 
 	transformRefresh() {
 		// matrix(scaleX, skewY, skewX, scaleY, posX, posY)
-		this.element.setAttributeNS(null, 'transform', `matrix(
-			${this.scale._x}, 0, 0, ${this.scale._y}, ${this.position._x}, ${this.position._y}
-		)`);
+		this.element.setAttributeNS(null, 'transform', `matrix(${this.scale._x}, 0, 0, ${this.scale._y}, ${this.position._x-this.anchor._x*this.scale._x}, ${this.position._y-this.anchor._y*this.scale._y})`);
 	}
 
 	removeParent() {
 		this.element.remove();
 
 		if (this.parent) {
-			let parent = this.parent;
-			let ind = parent.children.indexOf(this);
+			let ind = this.parent.children.indexOf(this);
 			if (ind !== -1) {
-				parent.children.splice(ind, 1);
+				this.parent.children.splice(ind, 1);
 			} else {
 				console.error('deleteGraphic: index of -1', this);
 			}
+			this.parent = undefined;
 		}
 	}
 
@@ -228,6 +283,11 @@ ave.SceneObject = class {
 		return this;
 	}
 
+	clone() {
+		let newClone = new ave.GraphicClone(this);
+		this.parent.addChild(newClone);
+        return newClone;
+	}
 
 }
 

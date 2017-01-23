@@ -25,14 +25,16 @@ ave.Prefabs = class {
 	add(item) {
 		if (item === undefined) return;
 
-		if (item.parent)
-			item.removeParent();
+		if (item.parent) {
+			let ind = item.parent.children.indexOf(item);
+			if (ind !== -1)
+				item.parent.children.splice(ind, 1);
+			else
+				console.error('deleteGraphic: index of -1', this);
+		}
 
 		this.items.push(item);
-		this.element.appendChild(item.element); 
-
-		if (item.type === ave.config.type.GRAPHIC)
-			item.clone = ave.interface.cloneGraphic;
+		this.element.appendChild(item.element);
 	}
 }
 

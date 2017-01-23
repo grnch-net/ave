@@ -28,7 +28,8 @@ ave.Scene = class {
             position: {
                 x: this.width / 2,
                 y: this.height / 2
-            }
+            },
+			scale: {}
         });
 
         this.element.appendChild(this.world.element);

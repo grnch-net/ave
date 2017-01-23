@@ -1,100 +1,7 @@
 (function () {
 "use strict";
 
-ave.Text = class {
-
-	_initValue(param) {
-		this._value = 'Default text.';
-		Object.defineProperty(this, "value", {
-            get: function () {
-                return this._value;
-            },
-            set: function (val) {
-				if (typeof(val) !== 'string'
-					&& typeof(val) !== 'number'
-				) return;
-
-                this._value = val;
-				this.element.innerHTML = val;
-            }
-        });
-
-		if (typeof(param.value) === 'string'
-			|| typeof(param.value) === 'number'
-		) this._value = param.value;
-	}
-
-	_initFontSize(param) {
-		this._fontSize = 21;
-		Object.defineProperty(this, "fontSize", {
-            get: function () {
-                return this._fontSize;
-            },
-            set: function (val) {
-				if (typeof(val) !== 'number') return;
-
-                this._fontSize = val;
-				this.element.setAttributeNS(null, 'font-size', val);
-            }
-        });
-
-		if (typeof(param.fontSize) === 'number')
-			this._fontSize = param.fontSize;
-	}
-
-	_initFontFamily(param) {
-		this._fontFamily = 'Verdana';
-		Object.defineProperty(this, "fontFamily", {
-            get: function () {
-                return this._fontFamily;
-            },
-            set: function (val) {
-				if (typeof(val) !== 'string') return;
-
-                this._fontFamily = val;
-				this.element.setAttributeNS(null, 'font-family', val);
-            }
-        });
-
-		if (typeof(param.fontFamily) === 'string')
-			this._fontFamily = param.fontFamily;
-	}
-
-	_initFontWeight(param) {
-		this._fontWeight = '';
-		Object.defineProperty(this, "fontWeight", {
-            get: function () {
-                return this._fontWeight;
-            },
-            set: function (val) {
-				if (typeof(val) !== 'string') return;
-
-                this._fontWeight = val;
-				this.element.setAttributeNS(null, 'font-weight', val);
-            }
-        });
-
-		if (typeof(param.fontWeight) === 'string')
-			this._fontWeight = param.fontWeight;
-	}
-
-	_initTextAnchor(param) {
-		this._textAnchor = '';
-		Object.defineProperty(this, "textAnchor", {
-            get: function () {
-                return this._textAnchor;
-            },
-            set: function (val) {
-				if (typeof(val) !== 'string') return;
-
-                this._textAnchor = val;
-				this.element.setAttributeNS(null, 'text-anchor', val);
-            }
-        });
-
-		if (typeof(param.textAnchor) === 'string')
-			this._textAnchor = param.textAnchor;
-	}
+ave.Text = class extends ave.Graphic {
 
     constructor(param) {
         if (!grnch.checkParam(param, {
@@ -104,6 +11,8 @@ ave.Text = class {
         }) ) {
             return;
         }
+
+		super();
 
         this.scene = param.scene;
 
@@ -116,54 +25,85 @@ ave.Text = class {
         this.element = dom.create({
             type: 'text',
             id: this.nodeId,
-			x: 0,
-			y: 0,
 			innerHTML: 'Default text.',
-			'font-size': 21
+			'font-size': 21,
+			'font-family': 'Verdana',
+			'font-weight': '',
+			'text-anchor': ''
         })
 
 		this.events = {};
 
-		this._initValue(param);
-		this._initFontSize(param);
-		this._initFontFamily(param);
-		this._initFontWeight(param);
-		this._initTextAnchor(param);
+		this._value = 'Default text.';
+		this.value = param.value;
 
-        ave.interface.initPosition(this, param);
-        ave.interface.initActiveChange(this, param);
-        ave.interface.initParent(this, param);
+		this._fontSize = 21;
+		this.fontSize = param.fontSize;
 
-		ave.interface.initOpacity(this, param);
-		ave.interface.initFill(this, param);
-		ave.interface.initFillOpacity(this, param);
-        ave.interface.initStroke(this, param);
-        ave.interface.initStrokeWidth(this, param);
+		this._fontFamily = 'Verdana';
+		this.fontFamily = param.fontFamily;
+
+		this._fontWeight = '';
+		this.fontWeight = param.fontWeight;
+
+		this._textAnchor = '';
+		this.textAnchor = param.textAnchor;
 
         this.scene.items[this.id] = this;
 
-		this.reDraw();
-
-		this.element.innerHTML = this.value;
-		this.element.setAttributeNS(null, 'font-size', this.fontSize);
-		this.element.setAttributeNS(null, 'font-family', this.fontFamily);
-		this.element.setAttributeNS(null, 'font-weight', this.fontWeight);
-		this.element.setAttributeNS(null, 'text-anchor', this.textAnchor);
+		this.initGraphic(param);
     }
 
-    reDrawChildren() {
-        this.reDraw();
-    }
+	get value () {
+		return this._value;
+	}
+	set value(val) {
+		if (typeof(val) !== 'string'
+			&& typeof(val) !== 'number'
+		) return;
 
-    reDraw() {
-		setTimeout(() => {
-			this.element.setAttributeNS(null, 'x', this.globalPosition.x);
-			this.element.setAttributeNS(null, 'y', this.globalPosition.y);
-		}, 0);
-    }
+		this._value = val;
+		this.element.innerHTML = val;
+	}
 
-	delete() {
-		ave.interface.deleteGraphic(this);
+	get fontSize() {
+		return this._fontSize;
+	}
+	set fontSize(val) {
+		if (typeof(val) !== 'number') return;
+
+		this._fontSize = val;
+		this.element.setAttributeNS(null, 'font-size', val);
+	}
+
+	get fontFamily() {
+		return this._fontFamily;
+	}
+	set fontFamily(val) {
+		if (typeof(val) !== 'string') return;
+
+		this._fontFamily = val;
+		this.element.setAttributeNS(null, 'font-family', val);
+	}
+
+	get fontWeight() {
+		return this._fontWeight;
+	}
+	set fontWeight(val) {
+		if (typeof(val) !== 'string') return;
+
+		this._fontWeight = val;
+		this.element.setAttributeNS(null, 'font-weight', val);
+	}
+
+	get textAnchor() {
+		return this._textAnchor;
+	}
+	set textAnchor(val) {
+		if (typeof(val) !== 'string') return;
+
+		this._textAnchor = val;
+		this.element.setAttributeNS(null, 'text-anchor', val);
 	}
 
 }

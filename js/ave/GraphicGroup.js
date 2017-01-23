@@ -1,16 +1,16 @@
 (function () {
 "use strict";
 
-ave.GraphicGroup = class {
+ave.GraphicGroup = class extends ave.Graphic {
 
     constructor(param) {
         if (!grnch.checkParam(param, {
             scene: {
                 class: ave.Scene
             }
-        }, 'ave.GraphicGroup: cunstructor') ) {
-            return;
-        }
+        }, 'ave.GraphicGroup: cunstructor') ) return;
+
+		super();
 
         this.scene = param.scene;
 
@@ -36,29 +36,20 @@ ave.GraphicGroup = class {
 
         this.children = [];
 
-        ave.interface.initPosition(this, param);
-        ave.interface.initActiveChange(this, param);
-        ave.interface.initParent(this, param);
-
-		ave.interface.initOpacity(this, param);
-        ave.interface.initFill(this, param);
-        ave.interface.initStroke(this, param);
-        ave.interface.initStrokeWidth(this, param);
-
         this.scene.items[this.id] = this;
 
-		this.reDraw();
+		this.initGraphic(param);
     }
 
-    reDraw() {
-        this.globalPosition.reWrite();
-    }
-
-    reDrawChildren() {
-        this.children.forEach((child) => {
-            child.globalPosition.reWrite();
-        });
-    }
+    // reDraw() {
+    //     this.globalPosition.reWrite();
+    // }
+	//
+    // reDrawChildren() {
+    //     this.children.forEach((child) => {
+    //         child.globalPosition.reWrite();
+    //     });
+    // }
 
     addChild(child, ind) {
         if (!grnch.checkParam({ child }, {
@@ -82,6 +73,8 @@ ave.GraphicGroup = class {
         }
 
         child.parent = this;
+
+		return this;
     }
 
     createGraphicGroup(param = {}) {
