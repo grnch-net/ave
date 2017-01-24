@@ -78,7 +78,7 @@ var qq = {};
 			return b;
 		};
 
-		qq.cloneCube.forEach((item, ind) => {
+		shuffle(qq.cloneCube).forEach((item, ind) => {
 			setTimeout(() => {
 				creatorAnimate.add({
 					time: 500,
