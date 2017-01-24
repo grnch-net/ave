@@ -41,20 +41,9 @@ ave.GraphicGroup = class extends ave.Graphic {
 		this.initGraphic(param);
     }
 
-    // reDraw() {
-    //     this.globalPosition.reWrite();
-    // }
-	//
-    // reDrawChildren() {
-    //     this.children.forEach((child) => {
-    //         child.globalPosition.reWrite();
-    //     });
-    // }
-
     addChild(child, ind) {
         if (!grnch.checkParam({ child }, {
             child: {
-                // class: [ave.GraphicGroup, ave.Graphic],
 				attr: {
 					type: [ave.config.type.GROUP, ave.config.type.GRAPHIC, ave.config.type.SPRITESHEET]
 				}
@@ -78,49 +67,57 @@ ave.GraphicGroup = class extends ave.Graphic {
     }
 
     createGraphicGroup(param = {}) {
-        let newGroup = ave.interface.createGraphicGroup(this.scene, param);
+		param.scene = this.scene;
+		let newGroup = new ave.GraphicGroup(param);
         this.addChild(newGroup);
         return newGroup;
     }
 
-    createGraphic(param = {}) {
-        let newGraphic = ave.interface.createGraphic(this.scene, param);
+    createGraphicPath(param = {}) {
+		param.scene = this.scene;
+		let newPath = new ave.GraphicPath(param);
         this.addChild(newGraphic);
         return newGraphic;
     }
 
     createCircle(param = {}) {
-        let newCircle = ave.interface.createCircle(this.scene, param);
+		param.scene = this.scene;
+		let newCircle = new ave.Circle(param);
         this.addChild(newCircle);
         return newCircle;
     }
 
     createRect(param = {}) {
-        let newRect = ave.interface.createRect(this.scene, param);
+		param.scene = this.scene;
+		let newRect = new ave.Rect(param);
         this.addChild(newRect);
         return newRect;
     }
 
     createText(param = {}) {
-        let newText = ave.interface.createText(this.scene, param);
+		param.scene = this.scene;
+		let newText = new ave.Text(param);
         this.addChild(newText);
         return newText;
     }
 
     createImage(param = {}) {
-        let newImage = ave.interface.createImage(this.scene, param);
+		param.scene = this.scene;
+		let newImage = new ave.Image(param);
         this.addChild(newImage);
         return newImage;
     }
 
     createSpriteSheet(param = {}) {
-        let newSpriteSheet = ave.interface.createSpriteSheet(this.scene, param);
+		param.scene = this.scene;
+		let newSpriteSheet = new ave.SpriteSheet(param);
         this.addChild(newSpriteSheet);
         return newSpriteSheet;
     }
 
     createForeignObject(param = {}) {
-        let newcreateForeignObject = ave.interface.createForeignObject(this.scene, param);
+		param.scene = this.scene;
+		let newForeignObject = new ave.ForeignObject(param);
         this.addChild(newcreateForeignObject);
         return newcreateForeignObject;
     }

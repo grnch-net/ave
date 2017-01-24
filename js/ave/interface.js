@@ -4,11 +4,6 @@
 ave.interface = {
 
     createGraphicGroup: function (scene, param = {}) {
-        if (typeof(param.position) !== 'object' )
-            param.position = {};
-		if (typeof(param.scale) !== 'object' )
-			param.scale = {};
-
         let newGroup = new ave.GraphicGroup({
             scene: scene,
 			active: param.active,
@@ -30,13 +25,8 @@ ave.interface = {
         return newGroup;
     },
 
-    createGraphic(scene, param = {}) {
-        if (typeof(param.position) !== 'object' )
-            param.position = {};
-		if (typeof(param.scale) !== 'object' )
-			param.scale = {};
-
-        let newGraphic = new ave.Graphic({
+    createGraphicPath(scene, param = {}) {
+        let newGraphic = new ave.GraphicPath({
             scene: scene,
 			active: param.active,
             name: param.name,
@@ -60,11 +50,6 @@ ave.interface = {
     },
 
     createCircle(scene, param = {}) {
-        if (typeof(param.position) !== 'object' )
-            param.position = {};
-		if (typeof(param.scale) !== 'object' )
-			param.scale = {};
-
         let newGraphic = new ave.Circle({
             scene: scene,
 			active: param.active,
@@ -91,13 +76,6 @@ ave.interface = {
     },
 
     createRect(scene, param = {}) {
-        if (typeof(param.position) !== 'object' )
-            param.position = {};
-        if (typeof(param.scale) !== 'object' )
-            param.scale = {};
-        if (typeof(param.size) !== 'object' )
-            param.size = {};
-
         let newRect = new ave.Rect({
             scene: scene,
 			active: param.active,
@@ -125,12 +103,8 @@ ave.interface = {
     },
 
 	createForeignObject(scene, param = {}) {
-        if (typeof(param.position) !== 'object' )
-            param.position = {};
         if (typeof(param.size) !== 'object' )
             param.size = {};
-		if (typeof(param.scale) !== 'object' )
-			param.scale = {};
 
         let newForeignObject = new ave.ForeignObject({
             scene: scene,
@@ -156,11 +130,6 @@ ave.interface = {
     },
 
     createText(scene, param = {}) {
-        if (typeof(param.position) !== 'object' )
-            param.position = {};
-		if (typeof(param.scale) !== 'object' )
-			param.scale = {};
-
         let newText = new ave.Text({
             scene: scene,
 			active: param.active,
@@ -189,12 +158,8 @@ ave.interface = {
     },
 
     createImage(scene, param = {}) {
-        if (typeof(param.position) !== 'object' )
-            param.position = {};
         if (typeof(param.size) !== 'object' )
             param.size = {};
-		if (typeof(param.scale) !== 'object' )
-			param.scale = {};
 
         let newImage = new ave.Image({
             scene: scene,
@@ -220,12 +185,8 @@ ave.interface = {
     },
 
     createSpriteSheet(scene, param = {}) {
-        if (typeof(param.position) !== 'object' )
-            param.position = {};
         if (typeof(param.size) !== 'object' )
             param.size = {};
-		if (typeof(param.scale) !== 'object' )
-			param.scale = {};
 
         let newImage = new ave.SpriteSheet({
             scene: scene,

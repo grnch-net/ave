@@ -88,6 +88,9 @@ ave.Rect = class extends ave.Graphic {
 			}
 		};
 
+		if (typeof(param.size) !== 'object' )
+            param.size = {};
+
 		this.size.width = param.size.width;
 		this.size.height = param.size.height;
 	}
