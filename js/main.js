@@ -49,8 +49,8 @@ var qq = {};
 		qq.prefab = qq.creatorBG.createRect({
 			scene: scene,
 			size: {
-				width: 101,
-				height: 101
+				width: 100,
+				height: 100
 			}
 		});
 		scene.prefabs.add(qq.prefab);
@@ -67,7 +67,8 @@ var qq = {};
 			}
 		}
 
-		function shuffle(b) {
+		function shuffle(arr) {
+			let b = arr.slice(0);;
 			var i = b.length, j, t;
 			while( i ) {
 				j = Math.floor( ( i-- ) * Math.random() );
@@ -90,7 +91,54 @@ var qq = {};
 			}, ind*20);
 		});
 
+		setTimeout(() => {
+			let timer = 0;
+			let polLong = +(long/2).toFixed();
+			for(let j=0; j<polLong; j++) {
+				for(let i=lat-1; i>-1; i--) {
+					setTimeout(() => {
+						creatorAnimate.add({
+							time: 1000,
+							process: function (progress) {
+									let itemLeft = qq.cloneCube[i*long+(polLong-j-1)];
+									itemLeft.opacity = 1-progress;
+									itemLeft.scale.set(1-progress, 1-progress);
+
+									let itemRight = qq.cloneCube[i*long+j+polLong];
+									itemRight.opacity = 1-progress;
+									itemRight.scale.set(1-progress, 1-progress);
+							}
+						});
+					}, 20*timer++);
+				}
+			}
+		}, 30*qq.cloneCube.length);
+
+		setTimeout(() => {
+			qq.cloneCube.forEach((item, ind) => {
+				setTimeout(() => {
+					creatorAnimate.add({
+						time: 500,
+						process: function (progress) {
+							item.scale.set(1-progress, 1-progress);
+							item.opacity = 1-progress;
+						}
+					});
+
+					var i = ind;
+					creatorAnimate.add({
+						time: 500,
+						process: function (progress) {
+							let itemBack = qq.cloneCube[qq.cloneCube.length-1-i];
+							itemBack.scale.set(1-progress, 1-progress);
+							itemBack.opacity = 1-progress;
+						}
+					});
+				}, ind*20);
+			});
+		}, 60*qq.cloneCube.length);
 	};
+
 
 
 })();
