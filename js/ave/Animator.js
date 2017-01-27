@@ -11,6 +11,7 @@
 			super();
 
 			this._stack = [];
+			this._keyList = {};
 			this._lastTime = performance.now();
 
 			this._active = (typeof(param.active) === 'boolean')? param.active : ave.config.animator.active;

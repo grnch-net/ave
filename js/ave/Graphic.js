@@ -21,15 +21,23 @@ ave.Graphic = class extends ave.SceneObject {
 
 		this._strokeWidth = 0;
 
+		this._filter = null;
     }
 
 	initGraphic(param) {
 		this.initSceneObject(param);
 
-        this.fill = param.fill;
-		this.fillOpacity = param.fillOpacity;
-		this.stroke = param.stroke;
-		this.strokeOpacity = param.strokeOpacity;
+		let graphicAttr = [
+			'fill',
+			'fillOpacity',
+			'stroke',
+			'strokeOpacity',
+			'filter'
+		];
+
+		graphicAttr.forEach((key) => {
+			this[key] = param[key];
+		});
 	}
 
 	get fill() {
@@ -94,6 +102,15 @@ ave.Graphic = class extends ave.SceneObject {
 
 		obj.element.setAttributeNS(null, 'stroke-width', val);
 		obj._strokeWidth = val;
+	}
+
+	get filter() {
+		return this._filter;
+	}
+	set filter(val) {
+		if (!(val instanceof ave.Filter)) return;
+
+		this.element.setAttributeNS(null, 'filter', `url(#${val.nodeId})`);
 	}
 
 }

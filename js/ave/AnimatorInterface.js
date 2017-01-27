@@ -30,21 +30,29 @@
 				delay: 0
 			};
 
+			if (typeof(param.process) === 'function')
+			newAnimation.process = param.process;
+
+			if (typeof(param.callback) === 'function')
+			newAnimation.callback = param.callback;
+
+			if (newAnimation.process === undefined
+				&& newAnimation.callback === undefined
+			) return;
+
+
 			if (typeof(param.delay) === 'number')
 				newAnimation.delay = param.delay;
 
 			if (typeof(param.active) === 'boolean')
 				newAnimation.active = param.active;
 
-			if (typeof(param.process) === 'function')
-				newAnimation.process = param.process;
-
-			if (typeof(param.callback) === 'function')
-				newAnimation.callback = param.callback;
-
-			if (newAnimation.process === undefined
-				&& newAnimation.callback === undefined
-			) return;
+			if (typeof(param.key) === 'string') {
+				newAnimation.key = param.key;
+				if (this._keyList[param.key])
+					this.remove(this._keyList[param.key]);
+				this._keyList[param.key] = newAnimation;
+			}
 
 			this._stack.push(newAnimation);
 
@@ -52,21 +60,23 @@
 		}
 
 		/*	index: string,
-			isCallback: boolean,
-			*index: number	*/
-		remove(anim, isCallback, index) {
-			if (index === undefined)
+			isCallback: boolean*/
+		remove(anim, isCallback = false) {
+			let index = anim;
+			if (typeof(index) !== 'number')
 				index = this._stack.indexOf(anim);
 
-			if (typeof(index) !== 'number'
-				|| index >= this._stack.length
+			if (index >= this._stack.length
 				|| index < 0
 			) return;
 
-			this._stack.splice(index, 1)[0];
+			anim = this._stack.splice(index, 1)[0];
 
 			if (isCallback && anim.callback)
 				anim.callback();
+
+			if (anim.key)
+				delete this._keyList[anim.key];
 		}
 
 

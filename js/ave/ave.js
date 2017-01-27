@@ -33,6 +33,9 @@ ave = {
 				ANIMATION: 1
 			},
 			active: true
+		},
+		circle: {
+			radius: 10
 		}
     },
 

@@ -1,4 +1,5 @@
-(function () {
+
+this._keyList = {};(function () {
 "use strict";
 
 	if (ave.Animator === undefined) {
@@ -16,6 +17,7 @@
 
 			this.type = ave.config.animator.type.GROUP;
 			this._stack = [];
+			this._keyList = {};
 			this.time = 0;
 
 			this._active = (typeof(param.active) === 'boolean')? param.active : ave.config.animator.active;
