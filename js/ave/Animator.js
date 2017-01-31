@@ -1,7 +1,7 @@
 (function () {
 "use strict";
 
-	ave.Animator = class extends ave.interface.animator {
+	ave.Animator = class extends ave.AnimatorInterface {
 
 		/*	param: {
 				scene: ave.Scene,
@@ -10,8 +10,6 @@
 		constructor(param) {
 			super();
 
-			this._stack = [];
-			this._keyList = {};
 			this._lastTime = performance.now();
 
 			this._active = (typeof(param.active) === 'boolean')? param.active : ave.config.animator.active;

@@ -6,10 +6,12 @@
 		return;
 	}
 
-	ave.Timeline = class {
+	ave.Timeline = class extends ave.AnimateGroup {
 
 		constructor(param) {
+			super(param);
 
+			// this._lineStack
 		}
 
 		/*	param: {

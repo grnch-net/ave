@@ -1,12 +1,12 @@
 (function () {
 "use strict";
 
-	if (ave.interface === undefined) {
-		console.error('Need "ave.interface" module!');
-		return;
-	}
+	ave.AnimatorInterface = class {
+		constructor() {	
+			this._stack = [];
+			this._keyList = {};
+		}
 
-	ave.interface.animator = class {
 		/*	param: {
 				time: number, (milisec)
 				*process: function(progress) {},

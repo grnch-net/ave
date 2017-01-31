@@ -2,12 +2,7 @@
 this._keyList = {};(function () {
 "use strict";
 
-	if (ave.Animator === undefined) {
-		console.error('Need "ave.Animator" module!');
-		return;
-	}
-
-	ave.AnimateGroup = class extends ave.interface.animator {
+	ave.AnimateGroup = class extends ave.AnimatorInterface {
 
 		/*	param: {
 				active: boolean
@@ -16,8 +11,6 @@ this._keyList = {};(function () {
 			super();
 
 			this.type = ave.config.animator.type.GROUP;
-			this._stack = [];
-			this._keyList = {};
 			this.time = 0;
 
 			this._active = (typeof(param.active) === 'boolean')? param.active : ave.config.animator.active;

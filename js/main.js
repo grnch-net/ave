@@ -108,6 +108,7 @@ var qq = {};
 									itemLeft.scale.set(1-progress, 1-progress);
 
 									let itemRight = qq.cloneCube[i*long+j+polLong];
+									if (itemRight == undefined) return;
 									itemRight.opacity = 1-progress;
 									itemRight.scale.set(1-progress, 1-progress);
 							}
@@ -120,7 +121,7 @@ var qq = {};
 		setTimeout(() => {
 			qq.cloneCube.some((item, ind) => {
 				let i = qq.cloneCube.length-1-ind;
-				if (ind >= i) return true;
+				if (ind > i) return true;
 				setTimeout(() => {
 					creatorAnimate.add({
 						key: 'c'+ind,
@@ -130,7 +131,7 @@ var qq = {};
 							item.opacity = progress;
 						}
 					});
-
+					if (ind == i) return;
 					creatorAnimate.add({
 						key: 'c'+i,
 						time: 500,
