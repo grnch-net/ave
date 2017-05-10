@@ -1,6 +1,7 @@
-var grnch;
+var grnch, $;
 (function () {
 "use strict";
+	$ = key=>{return document.querySelectorAll(key);};
 
 	grnch = {
 	    svgns: 'http://www.w3.org/2000/svg',

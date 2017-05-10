@@ -76,8 +76,8 @@ ave.GraphicGroup = class extends ave.Graphic {
     createGraphicPath(param = {}) {
 		param.scene = this.scene;
 		let newPath = new ave.GraphicPath(param);
-        this.addChild(newGraphic);
-        return newGraphic;
+        this.addChild(newPath);
+        return newPath;
     }
 
     createCircle(param = {}) {

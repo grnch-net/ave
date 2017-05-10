@@ -43,7 +43,8 @@ ave.interface = {
             fill: param.fill,
             fillOpacity: param.fillOpacity,
             stroke: param.stroke,
-            strokeWidth: param.strokeWidth
+            strokeWidth: param.strokeWidth,
+			strokeDasharray: param.strokeDasharray
         });
 
         return newGraphic;

@@ -230,8 +230,8 @@ ave.SceneObject = class {
 		if (typeof(val) !== 'boolean') return;
 		if (val == this._active) return;
 
-		obj.element.style.display = (val)? '' : 'none';
-		obj._active = val;
+		this._active = val;
+		this.element.style.display = (val)? '' : 'none';
 	}
 
 	get opacity() {
@@ -241,8 +241,8 @@ ave.SceneObject = class {
 		if (typeof(val) !== 'number') return;
 		if (val == this._opacity) return;
 
-		this.element.setAttributeNS(null, 'opacity', val);
 		this._opacity = val;
+		this.element.setAttributeNS(null, 'opacity', val);
 	}
 
 	transformRefresh() {

@@ -21,6 +21,8 @@ ave.Graphic = class extends ave.SceneObject {
 
 		this._strokeWidth = 0;
 
+		this._strokeDasharray = '';
+
 		this._filter = null;
     }
 
@@ -32,6 +34,8 @@ ave.Graphic = class extends ave.SceneObject {
 			'fillOpacity',
 			'stroke',
 			'strokeOpacity',
+			'strokeWidth',
+			'strokeDasharray',
 			'filter'
 		];
 
@@ -100,8 +104,18 @@ ave.Graphic = class extends ave.SceneObject {
 	set strokeWidth(val) {
 		if (typeof(val) !== 'number') return
 
-		obj.element.setAttributeNS(null, 'stroke-width', val);
-		obj._strokeWidth = val;
+		this._strokeWidth = val;
+		this.element.setAttributeNS(null, 'stroke-width', val);
+	}
+
+	get strokeDasharray() {
+		return this._strokeDasharray;
+	}
+	set strokeDasharray(val) {
+		if (typeof(val) !== 'string') return
+
+		this._strokeDasharray = val;
+		this.element.setAttributeNS(null, 'stroke-dasharray', val);
 	}
 
 	get filter() {
