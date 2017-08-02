@@ -112,7 +112,7 @@ ave.Graphic = class extends ave.SceneObject {
 		return this._strokeDasharray;
 	}
 	set strokeDasharray(val) {
-		if (typeof(val) !== 'string') return
+		// if (typeof(val) !== 'number') return
 
 		this._strokeDasharray = val;
 		this.element.setAttributeNS(null, 'stroke-dasharray', val);
